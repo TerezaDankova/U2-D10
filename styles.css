@@ -1,0 +1,25 @@
+:root {
+  --clr-dk:rgb(20, 20, 20);
+  --clr-prime-link: #79b8f3;
+  --clr-prime: #00a8e1;
+}
+
+body {
+  color: white;
+  background-color: var(--clr-dk);
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.navbar {
+  background-color: var(--clr-dk);
+  background-repeat: repeat-x;
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.pad {
+  padding: 0.10rem;
+}

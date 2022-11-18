@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" />
+
+    <style>
+        body {
+            color: white;
+            background-color: #141414;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0, auto;
+        }
+
+        .icons {
+            color: white;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+  <!--navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark px-4 mt-1" style="height: 50px;">
+    <a class="navbar-brand pl-2" href="#"><img src="./media/netflix_logo.png" alt="netflix-logo" height="50"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" style="font-size: 14px; font-weight: 400;">
+            <li class="nav-item">
+                <a class="nav-link" href="#/index.html">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">TV Shows</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Recently Added</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">My List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#./backoffice.html">Back Office<span class="sr-only">(current)</span></a>
+            </li>
+            
+        </ul>
+        <div class="mr-4">
+            <i class="bi bi-search mr-2"></i>
+            <span class="d-inline-block text-truncate align-middle text-light" style="font-size: 12px;"> KIDS</span>
+            <div class="dropdown d-inline-block">
+                <button class="btn text-white dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"style="width: 100px;">
+                    <i class="bi bi-bell-fill mr-2"></i>
+                    <img class="mr-2 align-middle" src="./media/avatar.png" style="width: 25px;">
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </nav>
+
+<!--CREATED container-->
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 justify-content-center">
+                <h2 class="mt-5 mb-3">Backoffice</h2>
+                <form class="form" id="myForm"> <!--onsubmit="submitOption(event)"-->
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" class="form-control" name="input_username" placeholder="Movie name..." required />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input id="description" type="text" class="form-control"  name="input_description"  placeholder="Description..." required />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input id="category" type="text" class="form-control" name="input_category"  placeholder="Category..." required />
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">URL of the movie</label>
+                        <input id="imageUrl" type="text" class="form-control" name="input_url" placeholder="https://" required />
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger mt-3">Submit</button>
+                    <button type="button" class="btn btn-danger mt-3" onclick="editOption()">Edit</button>
+                    <button type="button" class="btn btn-danger mt-3" onclick="deleteOption()">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src=" https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script>
+
+
+
+
+  
+
+        const myForm = document.getElementById("myForm");
+
+        myForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = {
+                    name: document.getElementById("name").value,
+                    description: document.getElementById("description").value,
+                    category: document.getElementById("category").value,
+                    imageUrl: document.getElementById("imageUrl").value,
+                    }
+
+        fetch("https://striveschool-api.herokuapp.com/api/movies",
+                    { method: "POST", body: JSON.stringify(formData),
+                              headers: {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3YTZiMzFlYjc2ZDAwMTUxNTAyNDgiLCJpYXQiOjE2NjE1MDYyODksImV4cCI6MTY2MjcxNTg4OX0.zeLGsDx4YQgxpr8XJoPtMuzywrseiS3GMR1nEgPYbLY",}
+                   })
+                   .then(function(response){
+                     return response.text();
+                   })
+                    .then(function(text){
+                     console.log(text);
+                  })
+                   .catch(function(error){
+                     console.log(error);
+                   })
+     
+         })
+
+
+         
+
+        // const submitOption = async () => {
+        //     try { event.preventDefault();
+        //        const movies = {
+        //              name: document.getElementById("name").value,
+        //             description: document.getElementById("description").value,
+        //             category: document.getElementById("category").value,
+        //             imageUrl: document.getElementById("imageUrl").value,
+        //             }
+        //         const options = { method: "POST", body: JSON.stringify(movies),
+        //                           headers: {"Content-Type": "application/json", "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3YTZiMzFlYjc2ZDAwMTUxNTAyNDgiLCJpYXQiOjE2NjE1MDYyODksImV4cCI6MTY2MjcxNTg4OX0.zeLGsDx4YQgxpr8XJoPtMuzywrseiS3GMR1nEgPYbLY",}
+        //         }
+        //         const response = await fetch("https://striveschool-api.herokuapp.com/api/movies", options)
+
+        //         window.location.assign("./index.html")
+        //     }
+        //     catch (error) {
+        //         console.log("this is a 1", error);
+        //     }
+        // }
+
+
+        // const movieId = new URLSearchParams(window.location.search).get("_id")
+
+        // //const movieCategory = new URLSearchParams(window.location.search).get("category")
+    
+
+        // window.onload = async () => {
+        //     try { const movieEdit = await fetch("https://striveschool-api.herokuapp.com/api/movies/" + movieId, { method: "GET", headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3YTZiMzFlYjc2ZDAwMTUxNTAyNDgiLCJpYXQiOjE2NjE1MDYyODksImV4cCI6MTY2MjcxNTg4OX0.zeLGsDx4YQgxpr8XJoPtMuzywrseiS3GMR1nEgPYbLY"}})
+        //           const foundMovie = await movieEdit.json()
+        //         //  console.log(foundMovie)
+        //         //const { name, description, category, imageUrl} =  foundMovie ;      //response.filter((singleMovie) => { return singleMovie._id === movieId })[0]
+        //           console.log("this are the movies found", foundMovie)
+
+        //           let inputsAll = document.querySelectorAll("input")
+        //           inputsAll.forEach((input) => {input.value = foundMovie[input.movieId]})
+
+        //     } catch (err) {
+        //         console.log("this is a 3", err)
+        //     }
+        // }
+
+        
+        // const editOption = async () => {
+        //       try { const list = {
+        //             name: document.getElementById("name").value,
+        //             description: document.getElementById("description").value,
+        //             category: document.getElementById("category").value,
+        //             imageUrl: document.getElementById("imageUrl").value,
+        //           }
+        //         const optionsOne = { method: "PUT", body: JSON.stringify(list), headers: { "Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3YTZiMzFlYjc2ZDAwMTUxNTAyNDgiLCJpYXQiOjE2NjE1MDYyODksImV4cCI6MTY2MjcxNTg4OX0.zeLGsDx4YQgxpr8XJoPtMuzywrseiS3GMR1nEgPYbLY",}}
+        //         const movieEdit = await fetch("https://striveschool-api.herokuapp.com/api/movies/" + movieId, optionsOne)
+        //         console.log(movieId)
+        //         const response = await movieEdit.json()
+        //         window.location.assign("./index.html")
+        //     } catch (error) {
+        //         console.log("this is a 4", error)
+        //     }
+        // }
+       
+
+
+    </script>
+</body>
+
+</html>

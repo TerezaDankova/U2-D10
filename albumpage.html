@@ -490,237 +490,172 @@
     <!-- d3-bootstrap -->
     <script src="https://cdn.jsdelivr.net/gh/sebt3/d3-bootstrap@0.5.2/dist/d3-bootstrap-withextra.min.js"></script>
     <script>
-const loadAlbums = async (query) => {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzM2RmMDdmZmQ0OTAwMTU4YTdhOWEiLCJpYXQiOjE2NTQ4NjUzOTMsImV4cCI6MTY1NjA3NDk5M30.2OFqiZlYFI8_pway6VuyyVMq_FoFqoK3aOgNgDlGntw",
-      },
-    };
-    const getSongs = await fetch(
-      `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`,
-      options
-    );
 
-    const response = await getSongs.json();
-
-    const { data } = response;
-    console.log(data);
-
-    const viewImages = data.slice(0, 12);
-    viewImages.forEach((song) => {
-      const songs = document.getElementById("menu");
-      songs.innerHTML += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2 d-flex">
-                            <a href="./albumpage.html?albumID=${song.album.id}">
-                              <div class="card mb-3">
-                              <div class="row no-gutters">
-                                <div class="col-md-4">
-                                  <img class="img-fluid" src="${song.album.cover_medium}" alt="${song.album.title}">
-                                </div>
-                                <div class="col-md-8 ">
-                                  <div class="card-body px-2 py-3">
-                                    <p class="card-title align-middle">${song.album.title}</p>
-                                        
-                                  </div>
-                                </div>
-                              </div>
-                              </div>
-                            </a>
-                          </div>`;
-    });
-    // <button class="play-btn"></button>
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const loadRecently = async (query) => {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzM2RmMDdmZmQ0OTAwMTU4YTdhOWEiLCJpYXQiOjE2NTQ4NjUzOTMsImV4cCI6MTY1NjA3NDk5M30.2OFqiZlYFI8_pway6VuyyVMq_FoFqoK3aOgNgDlGntw",
-      },
-    };
-    const getSongs = await fetch(
-      `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`,
-      options
-    );
-
-    const response = await getSongs.json();
-
-    const { data } = response;
-    console.log(data);
-
-    const viewImages = data.slice(0, 6);
-    viewImages.forEach((song) => {
-      const songs = document.getElementById("recentlyViewed");
-      songs.innerHTML += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2 ">
-                              <a href="./albumpage.html?albumID=${song.album.id}">
-                                <div class="card" >
-                               <div class="example">
-                                <img src="${song.album.cover_medium}" id="imgTop" class="card-img-top" alt="${song.album.title}">
-                                <button class="mybutton"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-                                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-                                  </svg></button>
-                                  </div>
-                                    <div class="card-body">
-                                      <h5 class="card-title">${song.album.title}</h5>
-                                      <p class="card-text">${song.artist.name} </p>                           
-                                        
-                                                            
-                                </div>
-                                </div>
-                              </a>      
-                          </div>`;
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const loadSongsToTry = async (query) => {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzM2RmMDdmZmQ0OTAwMTU4YTdhOWEiLCJpYXQiOjE2NTQ4NjUzOTMsImV4cCI6MTY1NjA3NDk5M30.2OFqiZlYFI8_pway6VuyyVMq_FoFqoK3aOgNgDlGntw",
-      },
-    };
-    const getSongs = await fetch(
-      `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`,
-      options
-    );
-
-    const response = await getSongs.json();
-
-    const { data } = response;
-    console.log(data);
-
-    const viewImages = data.slice(0, 6);
-    viewImages.forEach((song) => {
-      const songs = document.getElementById("tryThis");
-      songs.innerHTML += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2 ">
-                              <a href="./albumpage.html?albumID=${song.album.id}">
-                                <div class="card" >
-                                  <div class="example">
-                                    <img id="img-card" src="${song.album.cover_medium}" class="card-img-top" alt="${song.album.title}">
-                                    <button class="mybutton"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-                                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-                                  </svg></button>
-                                  </div>  
-                                    <div class="card-body">
-                                      <h5 class="card-title">${song.album.title}</h5>
-                                      <p class="card-text">${song.artist.name}</p>                           
+let changePage = () => {
+    let urlQuery = new URLSearchParams(document.location.search).get("albumID")
+  
+  
+    fetch("https://striveschool-api.herokuapp.com/api/deezer/album/" + urlQuery)
+      .then(response => response.json())
+      .then(body => {
+        console.log(body)
+  
+        let jumbotronimage = document.querySelector(".jumbotron")
+        jumbotronimage.innerHTML = `
+        <img id="hero-img" src="${body.cover_medium}"
+          class="jumbo-picture"
+          alt="Hybrid theory album cover"
+        />
+        `
+        let titlesection = document.querySelector(".title-section1")
+  
+        titlesection.innerHTML = `<div class="col-12 title-section1">
+                                    <div class="d-flex flex-column">
+                                      <small>ALBUM</small>
+                                      <h2>${body.title}</h2>
+                                      <div>
+                                        <p>
+                                          <small
+                                            ><strong>
+                                              <img class="mr-2"
+                                                src="${body.cover_small}"
+                                                
+                                                alt=""
+                                                style="border-radius: 2rem; height: 20px;"
+                                                alt="Original Album Cover"
+                                              />${body.artist.name}. </strong
+                                             >${new Date(body.release_date).getFullYear()}<strong> . </strong>${body.nb_tracks} songs<strong>.
+                </strong>${convertHrAndMin(body.duration)} <strong>
+                                        </p>
+                                      </div>
                                     </div>
-                                </div>
-                              </a>       
-                          </div>`;
-    });
-  } catch (error) {
-    console.log(error);
+                                  </div>`
+  
+        const arrayOfTracks = body.tracks.data;
+        for (let i = 0; i < arrayOfTracks.length; i++) {
+          const singleTrack = arrayOfTracks[i]
+          let titleTime = document.querySelector(".titleTime")
+          let titleBoby = document.querySelector(".titleBoby")
+          let audioSong = document.querySelector(".audioSong")
+          titleBoby.innerHTML += `<div class="ml-3 pb-4">
+         
+         
+          <span class="track-num">${i + 1}</span>
+         
+        
+          <span class="album-song ml-4"><strong class="track-decoration">
+          ${singleTrack.title}</strong>
+         
+          <br /><span class="singer-name"> ${body.artist.name}</span></span>
+      </div>
+      `
+          audioSong.innerHTML += `<audio controls>
+      <source src=${singleTrack.preview} type="audio/ogg">
+      <source src=${singleTrack.preview} type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio> `
+          titleTime.innerHTML += ` <div class="ml-8 pb-5 ">${convertMinAndSec(singleTrack.duration)}</div> `
+        }
+  
+      })
+  
   }
-};
-
-const favouriteSongs = async (query) => {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzNDM5MzdmZmQ0OTAwMTU4YTdhOWMiLCJpYXQiOjE2NTUyMDM2MTMsImV4cCI6MTY1NjQxMzIxM30.ozVgl19lKNBmQ3TeP-LfrHL4ak2PqE9Lj3nhDMHEg0k",
-      },
+  
+  const favouriteSongs = async (query) => {
+    try {
+      const options = {
+        method: "GET",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzNDM5MzdmZmQ0OTAwMTU4YTdhOWMiLCJpYXQiOjE2NTUyMDM2MTMsImV4cCI6MTY1NjQxMzIxM30.ozVgl19lKNBmQ3TeP-LfrHL4ak2PqE9Lj3nhDMHEg0k",
+        },
+      }
+  
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`,
+        options
+      );
+  
+      const songs = await response.json();
+      console.log(songs)
+      const { data } = songs
+      const displaySongs = data.slice(0, 20)
+      displaySongs.forEach((song) => {
+        const popularAlbums = document.getElementById("favourites")
+        popularAlbums.innerHTML +=
+          `<span><p>${song.artist.name}</p></span>`
+      })
+  
+  
+    } catch (err) {
+      console.log(err)
+  
     };
-
-    const response = await fetch(
-      `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`,
-      options
-    );
-
-    const songs = await response.json();
-    console.log(songs);
-    const { data } = songs;
-    const displaySongs = data.slice(0, 20);
-    displaySongs.forEach((song) => {
-      const popularAlbums = document.getElementById("favourites");
-      popularAlbums.innerHTML += `<span><p>${song.artist.name}</p></span>`;
-    });
-  } catch (err) {
-    console.log(err);
   }
-};
-
-window.onload = async () => {
-  loadAlbums("love");
-  loadRecently("Tunico");
-  loadSongsToTry("But I Like It");
-  favouriteSongs("romantic");
-};
-
-const allSongs = async (query) => {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmEzM2RmMDdmZmQ0OTAwMTU4YTdhOWEiLCJpYXQiOjE2NTQ4NjUzOTMsImV4cCI6MTY1NjA3NDk5M30.2OFqiZlYFI8_pway6VuyyVMq_FoFqoK3aOgNgDlGntw",
-      },
-    };
-    const getSongs = await fetch(
-      `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`,
-      options
-    );
-    const response = await getSongs.json();
-
-    const { data } = response;
-    const songs = document.getElementById("songsSearched");
-    const displaySongs = data.slice(0, 6);
-    songs.innerHTML = `<div class="col-12"><h2>${query} Album</h2></div>`;
-    displaySongs.forEach((song) => {
-      songs.innerHTML += `<div class="col-2 mb-2 ">
-                              <a href="./albumpage.html?albumID=${song.album.id}">
-                                <div class="card" >
-                                <div class="example">
-                                    <img src="${song.album.cover_medium}" class="card-img-top" alt="${song.album.title}">
-                                    <button class="mybutton"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-                                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-                                  </svg></button>
-                                    </div>
-                                    <div class="card-body">
-                                      <h5 class="card-title">${song.album.title}</h5>
-                                      <p class="card-text">${song.artist.name}</p >                           
-                                    </div >
-                                </div >
-                              </a >       
-                          </div > `;
-    });
-  } catch (error) {
-    console.log(error);
+  
+  
+  
+  
+  function convertMinAndSec(duration) {
+    const sec = parseInt(duration)
+    let hours = Math.floor(sec / 3600);
+    let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+    let seconds = sec - (hours * 3600) - (minutes * 60);
+    if (hours < 10) { hours = "0" + hours; }
+    if (minutes < 10) { minutes = "0" + minutes; }
+    if (seconds < 10) { seconds = "0" + seconds; }
+    return minutes + ':' + seconds; //  MM : SS
   }
-};
-
-const displaySearch = () => {
-  const divNode = document.getElementById("search-div2");
-  divNode.classList.remove("visibility-hidden");
-};
-
-const input = document.querySelector("input");
-const button = document.querySelector(".search-btn");
-const checkDiv = document.querySelector("#search-div2 .svg-check");
-
-const findAlbum = (userEvent) => {
-  if (userEvent.type === "click") {
-    allSongs(input.value);
+  
+  function convertHrAndMin(duration) {
+    const sec = parseInt(duration)
+    let hours = Math.floor(sec / 3600);
+    let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+    let seconds = sec - (hours * 3600) - (minutes * 60);
+    if (hours < 10) { hours = hours; }
+    if (minutes < 10) { minutes = "0" + minutes; }
+    if (seconds < 10) { seconds = "0" + seconds; }
+    return hours + ' hr ' + minutes + ' min'; //  MM : SS
   }
-};
-button.addEventListener("click", displaySearch);
-checkDiv.addEventListener("click", findAlbum);
-
-
+  
+  window.onload = () => {
+    changePage()
+    favouriteSongs("love")
+  }
+  
+  
+  
+  
+  var state = 'stop';
+  function buttonPlayPress() {
+  
+    if (state == 'stop') {
+      state = 'play';
+  
+      var button = d3.select("#button_play").classed('btn-success', true);
+      button.select("i").attr('class', "fa fa-pause");
+    }
+    else {
+      state = 'stop';
+      d3.select("#button_play i").attr('class', "fa fa-play");
+    }
+  
+    console.log("button play pressed, play was " + state);
+  }
+  var heart = 'stop';
+  function buttonHeart() {
+    if (heart == 'stop') {
+      heart = 'play';
+      var button = d3.select("#heart").classed('btn-success', true);
+      button.select("i").attr('class', "bi bi-heart");
+    }
+    else {
+      heart = 'stop';
+      d3.select("#heart i").attr('class', "bi bi-heart-fill red-color");
+    }
+  
+    console.log("button play pressed, play was " + heart);
+  }
     </script>
 
 </body>
